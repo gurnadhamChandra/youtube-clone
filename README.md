@@ -12,9 +12,11 @@ Currently, two official plugins are available:
 If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
 
+<!-- make env file and use urls -->
+REACT_APP_DEV_TOOLS=true
+VITE_YOUTUBE_API_KEY
+VITE_YOUTUBE_BASE_URL
 
-
-AIzaSyCL0zWrmVywY4cf4l2xc_XASK3nY5O1o_M
 
 <!-- get youtube api key auth
 search youtube api key auth
