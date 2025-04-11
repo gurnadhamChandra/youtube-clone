@@ -7,30 +7,32 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setVideos } from "../store/slice/youtubeSlice";
 
-const VideoList=({})=>{
+const VideoList=({data,isLoading,error,videos,variant})=>{
     const dispatch=useDispatch()
-    const {data,isLoading,error}=useQuery({
-            queryKey: ['popularVideos'],
-        queryFn: youtubeService.getAllPopularVideos,
-        onSuccess: (data) => {
-            dispatch(setVideos(data.data.items));
-          },
-        })
+    // const {data,isLoading,error}=useQuery({
+    //         queryKey: ['popularVideos'],
+    //     queryFn: youtubeService.getAllPopularVideos,
+    //     onSuccess: (data) => {
+    //         dispatch(setVideos(data.data.items));
+    //       },
+    //     })
         const navigate=useNavigate()
         useEffect(()=>{
-             if(data&&data.data.items.length>0){
-                dispatch(setVideos(data.data.items));
+             if(data&&data.length>0){
+                dispatch(setVideos(data));
              }
-        },[data])
+        },[])
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading videos</div>;
     return(
-        <Grid container sx={{}} spacing={2}>
-           {data.data.items&&data.data.items.length>0&&data.data.items?.map((video) => {
+        <Grid container sx={{height:"100%"}} spacing={2}>
+           {data&&data.length>0&&data?.map((video) => {
             const { id, snippet, statistics } = video;
             const videoId = typeof id === 'string' ? id : id.videoId;
-            return(
+
+            if(variant==="home"){
+              return(
                 <Grid size={{xs:12 ,sm:6 ,md:4 ,lg:3 }}key={videoId} onClick={()=>navigate(`/watch/:${videoId}`)}>
                    <Box
               component="img"
@@ -78,7 +80,45 @@ const VideoList=({})=>{
               </IconButton>
                     </Box>
                     </Grid>
-            )
+            );
+            }
+
+
+            if(variant==="watchVideo"){
+              return(
+                <Grid item key={videoId} onClick={() => navigate(`/watch/:${videoId}`)} sx={{ cursor: "pointer" }}>
+                <Box display="flex" justifyContent={"space-between"} gap={2}>
+                  <Box
+                    component="img"
+                    src={snippet?.thumbnails?.medium?.url}
+                    alt={snippet?.title}
+                    sx={{
+                      width: 160,
+                      height: 90,
+                      borderRadius: 2,
+                      objectFit: "cover",
+                    }}
+                  />
+                  <Box flex="1" minWidth={0}>
+                    <Typography variant="subtitle2" fontWeight="bold" noWrap>
+                      {snippet?.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" noWrap>
+                      {snippet?.channelTitle}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {Number(statistics?.viewCount).toLocaleString()} views
+                    </Typography>
+                  </Box>
+                  <IconButton size="small" aria-label="more options">
+                <MoreVertical fontSize="small" />
+              </IconButton>
+                </Box>
+              </Grid>
+            );
+          }
+              
+            
 })}
             </Grid>
     )

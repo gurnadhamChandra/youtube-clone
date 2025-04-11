@@ -24,6 +24,8 @@ import {
 } from "react-feather";
 import CustomButton from "../components/Custombutton";
 import Comments from "./Comments";
+import ButtonList from "../components/ButtonList";
+import VideoList from "./VideoList";
 const WatchVideo = () => {
   const { videos, selectedVideo } = useSelector((state) => state.youtube);
   const { videoId } = useParams();
@@ -32,6 +34,7 @@ const WatchVideo = () => {
 
   const currentVideo = videos?.find((v) => v.id === vdId);
   const relatedVideos = videos?.filter((v) => v.id !== vdId);
+  
   return (
     <Grid
       container
@@ -43,7 +46,7 @@ const WatchVideo = () => {
           height: "100%",
           width: "100%",
           overflowY: "auto",
-          overflowX: "hidden",
+          // overflowX: "hidden",
         }}
       >
         <Grid container sx={{ padding: "15px 50px 10px 50px",width:"100%",height:"100%" }} spacing={2}>
@@ -211,10 +214,23 @@ const WatchVideo = () => {
              
             </Box>
           </Grid>
-          <Grid
-            size={{ xs: 12, md: 4 }}
-            sx={{ border: "1px solid blue" }}
-          ></Grid>
+          <Grid  size={{ xs: 12, md: 4 }}  sx={{  }}>
+            <Grid container display={"flex"} flexDirection="column"   sx={{height:"100%", width:"100%",position:"relative"}}>
+        <Grid sx={{width:"100%",p:0}}>
+           <ButtonList/>
+        </Grid>
+<Grid sx={{width:"100%",height:"90%",py:1}}>
+  
+    <VideoList 
+    data={relatedVideos} 
+    // isLoading={isLoading} 
+    // error={error} 
+    videos={videos}
+    variant="watchVideo"
+    />
+</Grid>
+        </Grid>
+          </Grid>
         </Grid>
       </PerfectScrollbar>
     </Grid>

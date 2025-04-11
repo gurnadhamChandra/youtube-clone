@@ -32,6 +32,7 @@ import { toggleMenu } from "../../store/slice/menuSlice";
         sx={{
           backgroundColor: "white",
           height: "100%",
+          width: "100%",
           boxShadow: "0px 1px 3px rgba(0,0,0,0.1)",
           borderBottom: "1px solid #E0E0E0",
           zIndex: 1,
@@ -46,7 +47,7 @@ import { toggleMenu } from "../../store/slice/menuSlice";
           container
           alignItems={"center"}
           justifyContent="space-between"
-          sx={{ width: "100%" }}
+          sx={{ width: "100%" ,height:"100%"}}
         >
           {/* Logo Section */}
           <Grid  size={{xs:6, sm:3}}>
@@ -124,6 +125,7 @@ import { toggleMenu } from "../../store/slice/menuSlice";
                 width: "100%",
                 gap: "10px",
                 flexWrap: "wrap",
+                flexShrink: 0,
               }}
             >
               <Button
