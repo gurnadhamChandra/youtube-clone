@@ -14,20 +14,23 @@ function Home() {
     const {data,isLoading,error}=useQuery({
             queryKey: ['popularVideos'],
         queryFn: youtubeService.getAllPopularVideos,
-        onSuccess: (data) => {
-          if (Array.isArray(data?.data?.items)) {
-            dispatch(setVideos(data.data.items));
-          } else {
-            console.warn("🚫 Data is not in expected format", data);
-          }
-          },
+         staleTime: 0, // ⬅️ ensures it always refetches on refresh
+         cacheTime: 0, // ⬅️ optional: prevents stale cache
+        refetchOnWindowFocus: true, // ⬅️ optional: triggers when window regains focus
+    onSuccess: (data) => {
+      if (data?.data?.items.length>0) {
+        console.log("sucesssdaraaaa",data?.data?.items)
+        dispatch(setVideos(data.data.items));
+      } else {
+        console.warn('🚫 Data is not in expected format', data);
+      }
+    },
         })
-        useEffect(()=>{
-            if(Array.isArray(data?.data?.items)){
-                dispatch(setVideos(data?.data?.items))
-            }
-        },[data])
-
+        // useEffect(()=>{
+        //     if(Array.isArray(data?.data?.items)){
+        //         dispatch(setVideos(data?.data?.items))
+        //     }
+        // },[data])
 
   return (
     <Grid container display={"flex"} flexDirection="column"   sx={{height:"100%", width:"100%",position:"relative",p:1}}>
