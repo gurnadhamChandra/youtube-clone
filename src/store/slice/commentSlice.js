@@ -33,7 +33,12 @@ const commentsSlice = createSlice({
   name: "comments",
   initialState,
   reducers: {
+    resetComments:(state,action)=>{
+        state.comments=[]
+
+    },
     addComment: (state, action) => {
+      console.log("action", action.payload);
       state.comments.push({
         id: uuidv4(),
         text: action.payload.text,
@@ -57,5 +62,5 @@ const commentsSlice = createSlice({
   },
 });
 
-export const { addComment, addReply } = commentsSlice.actions;
+export const { addComment, addReply,resetComments } = commentsSlice.actions;
 export default commentsSlice.reducer;

@@ -16,6 +16,7 @@ const VideoList=({data,isLoading,error,videos,variant})=>{
     //         dispatch(setVideos(data.data.items));
     //       },
     //     })
+    const listToRender = data?.length > 0 ? data : videos;
         const navigate=useNavigate()
         useEffect(()=>{
              if(data&&data.length>0){
@@ -27,13 +28,13 @@ const VideoList=({data,isLoading,error,videos,variant})=>{
     if (error) return <div>Error loading videos</div>;
     return(
         <Grid container sx={{height:"100%"}} spacing={2}>
-           {data&&data.length>0&&data?.map((video) => {
+           {listToRender&&listToRender.length>0&&listToRender?.map((video) => {
             const { id, snippet, statistics } = video;
             const videoId = typeof id === 'string' ? id : id.videoId;
 
             if(variant==="home"){
               return(
-                <Grid size={{xs:12 ,sm:6 ,md:4 ,lg:3 }}key={videoId} onClick={()=>navigate(`/watch/:${videoId}`)}>
+                <Grid size={{xs:12 ,sm:6 ,md:4 ,lg:3 }}  key={videoId} onClick={()=>navigate(`/watch/:${videoId}`,{state:{listToRender}})}>
                    <Box
               component="img"
               src={snippet?.thumbnails?.high?.url}

@@ -22,7 +22,7 @@ const youtubeSlice=createSlice({
     reducers:{
         setVideos:(state,action)=>{
             state.videos=action.payload
-            state.selectedVideo=action.payload[0]
+            // state.selectedVideo=action.payload[0]
         },
         
     },

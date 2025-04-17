@@ -31,26 +31,27 @@ import { toggleMenu } from "../../store/slice/menuSlice";
         position="static"
         sx={{
           backgroundColor: "white",
-          height: "100%",
+          // height: "100%",
           width: "100%",
           boxShadow: "0px 1px 3px rgba(0,0,0,0.1)",
           borderBottom: "1px solid #E0E0E0",
-          zIndex: 1,
           margin: 0,
-          padding: { xs: "5px 10px", sm: "8px 16px" },
+          // padding: { xs: "5px 10px", sm: "8px 16px" },
+          padding: "6px 16px",
+          zIndex: 10,
           display: "flex",
-          justifyContent: "center",
           alignItems: "center",
         }}
       >
         <Grid
           container
           alignItems={"center"}
-          justifyContent="space-between"
-          sx={{ width: "100%" ,height:"100%"}}
+          // justifyContent="space-between"
+          wrap="nowrap"
+          sx={{ width: "100%" ,height:"100%",position:"relative"}}
         >
           {/* Logo Section */}
-          <Grid  size={{xs:6, sm:3}}>
+          <Grid  size={{xs:4, sm:3,md:3,lg:3}}>
             <Box display="flex" alignItems="center">
               <Menu style={{ color: "black", width: 24, height: 24 ,cursor:"pointer"}} onClick={()=>toggleSidebar()}/>
               <Box ml={2} display="flex" alignItems="center" sx={{cursor:"pointer"}} onClick={()=>navigate("/home")}>
@@ -63,10 +64,9 @@ import { toggleMenu } from "../../store/slice/menuSlice";
           </Grid>
   
           {/* Search Section */}
-          <Grid
-            size={{xs:12,sm:6,md:6,lg:4}}
-            sx={{ mt: { xs: 1, sm: 0 } }}
-          >
+          <Grid size={{xs:0,sm:6,md:6,lg:6}} display={isMobile ? "none" : "block"}
+            // sx={{ mt: { xs: 1, sm: 0 } }} 
+            >
             <Box
               sx={{
                 display: "flex",
@@ -102,7 +102,7 @@ import { toggleMenu } from "../../store/slice/menuSlice";
                 </IconButton>
               </Box>
   
-              <Box sx={{ ml: 1 }}>
+              <Box sx={{ ml: 2 }}>
                 <IconButton
                   sx={{ background: "#f1f1f1", borderRadius: "50%" }}
                 >
@@ -113,18 +113,19 @@ import { toggleMenu } from "../../store/slice/menuSlice";
           </Grid>
   
           {/* Right Section */}
+          {/* xs={8} sm={3} md={4} lg={4} */}
           <Grid
-            size={{xs:12,sm:3,md:4,lg:3}}
-            sx={{ mt: { xs: 1, sm: 0 } }}
+            size={{xs:8,sm:3,md:3,lg:3}}
+            // sx={{ mt: { xs: 1, sm: 0 } }}
           >
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: { xs: "center", sm: "flex-end" },
-                width: "100%",
-                gap: "10px",
-                flexWrap: "wrap",
+                justifyContent: "flex-end",
+                // width: "100%",
+                gap: "12px",
+                flexWrap: "nowrap",
                 flexShrink: 0,
               }}
             >
@@ -140,7 +141,7 @@ import { toggleMenu } from "../../store/slice/menuSlice";
                   fontSize: { xs: "12px", sm: "14px" },
                 }}
               >
-                Create
+               {!isMobile && "Create"}
               </Button>
   
               <IconButton>
@@ -161,7 +162,7 @@ import { toggleMenu } from "../../store/slice/menuSlice";
                 <Typography
                   sx={{
                     color: "black",
-                    fontSize: { xs: "12px", sm: "14px" },
+                    fontSize: "14px",
                     fontWeight: "bold",
                   }}
                 >

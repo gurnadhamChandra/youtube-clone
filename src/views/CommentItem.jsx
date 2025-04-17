@@ -1,9 +1,10 @@
 import { Avatar, Box, Stack, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Smile, ThumbsDown, ThumbsUp } from "react-feather";
 import { useDispatch } from "react-redux";
 import CustomButton from "../components/Custombutton";
 import { addReply } from "../store/slice/commentSlice";
+import CommentInput from "../components/CommnetInput";
 
 const CommentItem=({ comment }) => {
     const dispatch = useDispatch();
@@ -17,6 +18,10 @@ const CommentItem=({ comment }) => {
       setShowReplyInput(false);
     }
   };
+
+  // useEffect(()=>{
+
+  // },[videoId])
 
    return( <Box
     mt={2}
@@ -88,8 +93,8 @@ const CommentItem=({ comment }) => {
                 </Typography>
                 </Stack>
             </Box>
-            {showReplyInput && (
-                <Box mt={2} ml={2} display="flex" gap={2} alignItems="center">
+            {/* {showReplyInput && (
+                <Box mt={2}  display="flex" gap={2} alignItems="center">
                     <Avatar alt="User" />
                     <Box display={"flex"} flexDirection={"column"} flexGrow={1}>
                     <TextField
@@ -123,7 +128,31 @@ const CommentItem=({ comment }) => {
                     </Stack>
                     </Box>
                 </Box>
-                )}
+                )} */}
+
+              {showReplyInput && (
+                <Box mt={2}>
+                  <CommentInput
+                    avatarUrl="https://yt3.ggpht.com/yti/ANoDKi7W8YaD5qgS44RjvhJYZLtT6zVL8R_k2G3_4w=s88-c-k-c0x00ffffff-no-rj"
+                    placeholder="Add a reply..."
+                    onSubmit={(text) => {
+                      dispatch(addReply({ commentId: comment.id, text }));
+                      setShowReplyInput(false);
+                    }}
+                    onCancel={() => {
+                      setReplyText("");
+                      setShowReplyInput(false);
+                    }}
+                    submitLabel="Reply"
+                    cancelLabel="Cancel"
+                    autoFocus
+                  />
+                </Box>
+              )}
+
+
+
+
                 {comment.replies?.length > 0 && (
             <Box mt={1} >
               {comment.replies.map((reply) => (

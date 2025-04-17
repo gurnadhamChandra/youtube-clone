@@ -22,10 +22,10 @@ const Sidebarpanel=()=>{
        <Drawer 
         variant="permanent"
        sx={{ 
-        width: istoggelopen ? "14%" : 50,
+        width: istoggelopen ? { xs: "70%", sm: 200, md: 220 } : 60,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: istoggelopen ? "14%" : 50,
+          width: istoggelopen ? { xs: "70%", sm: 200, md: 220 } : 50,
           transition: "width 0.3s",
         //   overflowX: "hidden",
         overflow:"visible",
@@ -37,6 +37,7 @@ const Sidebarpanel=()=>{
           border: "none",}
        }}>
         <Box sx={{height:"100%", overflowY: "auto",
+        px: istoggelopen ? 1 : 0,
             "&::-webkit-scrollbar": {
               width: "5px",
             },
