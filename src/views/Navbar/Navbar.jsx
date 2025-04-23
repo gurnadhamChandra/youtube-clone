@@ -14,6 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../../store/slice/menuSlice";
+import SearchBar from "../../components/SearchBar";
   
   const Navbar = () => {
     const theme = useTheme();
@@ -64,52 +65,9 @@ import { toggleMenu } from "../../store/slice/menuSlice";
           </Grid>
   
           {/* Search Section */}
-          <Grid size={{xs:0,sm:6,md:6,lg:6}} display={isMobile ? "none" : "block"}
-            // sx={{ mt: { xs: 1, sm: 0 } }} 
-            >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "100%",
-                // flexWrap: "wrap",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  border: "1px solid #ccc",
-                  borderRadius: "25px",
-                  paddingLeft: "10px",
-                  width: { xs: "100%", sm: "90%" },
-                }}
-              >
-                <InputBase
-                  size="small"
-                  placeholder="Search"
-                  sx={{ flex: 1, padding: "6px", fontSize: "16px" }}
-                />
-                <IconButton
-                  sx={{
-                    borderRadius: "0 25px 25px 0",
-                    background: "#f8f8f8",
-                    padding: "10px",
-                  }}
-                >
-                  <Search sx={{ color: "black" }} />
-                </IconButton>
-              </Box>
-  
-              <Box sx={{ ml: 2 }}>
-                <IconButton
-                  sx={{ background: "#f1f1f1", borderRadius: "50%" }}
-                >
-                  <Mic />
-                </IconButton>
-              </Box>
-            </Box>
+          <Grid size={{xs:0,sm:6,md:6,lg:6}} display={isMobile ? "none" : "block"}  >
+           
+            <SearchBar/>
           </Grid>
   
           {/* Right Section */}

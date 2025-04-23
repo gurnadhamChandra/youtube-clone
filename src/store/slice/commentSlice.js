@@ -38,7 +38,6 @@ const commentsSlice = createSlice({
 
     },
     addComment: (state, action) => {
-      console.log("action", action.payload);
       state.comments.push({
         id: uuidv4(),
         text: action.payload.text,

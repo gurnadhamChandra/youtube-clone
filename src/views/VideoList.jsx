@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setVideos } from "../store/slice/youtubeSlice";
+import Skeleton from "react-loading-skeleton";
 
 const VideoList=({data,isLoading,error,videos,variant})=>{
     const dispatch=useDispatch()
@@ -34,7 +35,7 @@ const VideoList=({data,isLoading,error,videos,variant})=>{
 
             if(variant==="home"){
               return(
-                <Grid size={{xs:12 ,sm:6 ,md:4 ,lg:3 }}  key={videoId} onClick={()=>navigate(`/watch/:${videoId}`,{state:{listToRender}})}>
+                  <Grid size={{xs:12 ,sm:6 ,md:4 ,lg:3 }}  key={videoId} onClick={()=>navigate(`/watch/:${videoId}`,{state:{listToRender}})}>
                    <Box
               component="img"
               src={snippet?.thumbnails?.high?.url}
@@ -48,9 +49,7 @@ const VideoList=({data,isLoading,error,videos,variant})=>{
               }}
               onClick={()=>navigate(`/watch/:${videoId}`)}
             />
-                    <Box mt={1} display="flex" justifyContent="space-between" alignItems="start"  sx={{
-                width: '100%',
-              }}>
+                    <Box mt={1} display="flex" justifyContent="space-between" alignItems="start"  sx={{ width: '100%',  }}>
                     <Box sx={{flex: 1,cursor:"pointer",
                   minWidth: 0, // important to allow ellipsis/wrap
                   }} onClick={()=>navigate(`/watch/:${videoId}`)}>
@@ -87,7 +86,7 @@ const VideoList=({data,isLoading,error,videos,variant})=>{
 
             if(variant==="watchVideo"){
               return(
-                <Grid item key={videoId} onClick={() => navigate(`/watch/:${videoId}`)} sx={{ cursor: "pointer" }}>
+                <Grid  key={videoId} onClick={() => navigate(`/watch/:${videoId}`)} sx={{ cursor: "pointer" }}>
                 <Box display="flex" justifyContent={"space-between"} gap={2}>
                   <Box
                     component="img"

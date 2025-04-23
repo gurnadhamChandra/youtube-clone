@@ -1,4 +1,4 @@
-import { Button, Grid } from '@mui/material'
+import { Box, Button, CircularProgress, Grid } from '@mui/material'
 import React, { useEffect, useRef } from 'react'
 import ButtonList from '../components/ButtonList'
 import {useDispatch, useSelector} from 'react-redux'
@@ -10,6 +10,8 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import { setVideos } from '../store/slice/youtubeSlice'
 function Home() {
     const {videos}=useSelector((state)=>state.youtube)
+       const { searchResults}=useSelector(state=>state.searchRe)
+    
     const scrollRef=useRef(null)
     const dispatch=useDispatch()
     // const {data,isLoading,error}=useQuery({
@@ -38,66 +40,72 @@ function Home() {
       cacheTime: 0,
       refetchOnWindowFocus: true,
       onSuccess: (data) => {
-        console.log("sucesssdaraaaa",data?.pages[0]?.data?.items)
         const allItems = data.pages.flatMap(p => p.data.items);
-        console.log("allItems",data,allItems)
         dispatch(setVideos(allItems));
       }
     })
-       console.log("daaaataaaaa",data)
 
 useEffect(()=>{
 const container=scrollRef?.current
-console.log("container",container)
-console.log("scrolled to bottom")
+if (!container) return;
+
 const handleScroll=()=>{
-  if(!container || !hasNextPage || isFetchingNextPage) return;
   const {scrollTop,clientHeight,scrollHeight}=container
-  if(scrollTop+clientHeight>=scrollHeight-1){
-    fetchNextPage()
+  if(scrollTop+clientHeight>=scrollHeight-50){
+    if(hasNextPage && !isFetchingNextPage){
+      fetchNextPage()
+    }
   }
-  container.addEventListener("scroll",handleScroll)
+  
+}
+container.addEventListener("scroll",handleScroll)
   return () => {
     container.removeEventListener("scroll",handleScroll)
   }
-}
 },[isFetchingNextPage,hasNextPage,fetchNextPage])
 
 
-
-      //  const handleScroll = (e) => {
-      //   const bottom =
-      //     e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-      //   if (bottom && hasNextPage && !isFetchingNextPage) {
-      //     fetchNextPage();
-      //   }
-      // };
-      console.log("isFetchingNextPage",isFetchingNextPage,hasNextPage)
   return (
    
     <Grid container display={"flex"} flexDirection="column"   sx={{height:"100%", width:"100%",position:"relative",p:1}}>
         <Grid sx={{width:"100%",py:1,height:"10%"}}>
            <ButtonList/>
         </Grid>
-        <PerfectScrollbar style={{height:"90%",width:"100%",
-        // overflowY:"auto",overflowX:"hidden"
-      }} 
-      containerRef={(ref) => (scrollRef.current = ref)} 
-        // onScrollY={handleScroll}
-        >
+        <Box
+           ref={scrollRef}
+          sx={{
+            height: "90%",
+            width: "100%",
+            overflowY: "auto",
+            scrollBehavior: "smooth", //  smooth behavior for scrolling
+            pr: 1, //  padding right to avoid cut-off
+            "&::-webkit-scrollbar": {
+              width: "6px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#ccc",
+              borderRadius: "4px",
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "transparent",
+            },
+          }}
+          >
+
+
         <Grid sx={{width:"100%",height:"100%"}}>
             <VideoList 
             // data={data?.pages[0].data?.items} 
-            data={data?.pages?.flatMap((page) => page.data.items)}
+            data={searchResults.length > 0 ? searchResults :data?.pages?.flatMap((page) => page.data.items)}
             isLoading={isLoading} error={error} videos={videos} variant="home"
             />
         </Grid>
         {isFetchingNextPage && (
-      <Grid textAlign="center" py={2}>
-        <span>Loading more videos...</span>
+      <Grid display="flex" justifyContent="center" textAlign="center" py={2}>
+        <CircularProgress  />
       </Grid>
     )}
-        </PerfectScrollbar>
+    </Box>
         </Grid>
   )
 }

@@ -34,16 +34,11 @@ const WatchVideo = () => {
   const { videoId } = useParams();
   const vdId = videoId.split(":")[1];
   const location = useLocation();
-  // const {data}=location.state
-  // console.log("videosingleeeeeeeeeeee",data)
-
-  // console.log("watchedddd",videos)
+  
   const dispatch = useDispatch();
   const scrollRef = useRef(null);
   const data = location.state?.listToRender || [];
-  // const currentVideo = data?.find((v) => v.id === vdId);
-  // const relatedVideos =data?.filter((v) => v.id !== vdId);
-  // console.log("currentVideo", currentVideo,relatedVideos);
+  
 
   useEffect(() => {
     if (location.state?.listToRender?.length > 0) {
@@ -65,7 +60,6 @@ const WatchVideo = () => {
     });
   }, [vdId, data]);
 
-  console.log("currentVideo", data, currentVideo, relatedVideos);
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = 0;

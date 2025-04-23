@@ -22,18 +22,20 @@ const Sidebarpanel=()=>{
        <Drawer 
         variant="permanent"
        sx={{ 
-        width: istoggelopen ? { xs: "70%", sm: 200, md: 220 } : 60,
+        width: istoggelopen ? { xs: "68vw", sm: 200, md: 220 } : 60,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: istoggelopen ? { xs: "70%", sm: 200, md: 220 } : 50,
-          transition: "width 0.3s",
+          width: istoggelopen ? { xs: "68vw", sm: 200, md: 220 } : 50,
+          // minWidth: 50,
+          //   maxWidth: 300,
+          transition: "width 0.3s ease-in-out",
         //   overflowX: "hidden",
         overflow:"visible",
          
         //   backgroundColor: "#f0f0f0",
         position: "absolute",
-        top: "69px", // ✅ height of your AppBar/Navbar
-        height: "calc(100vh - 69px)", // ✅ sidebar takes height below navbar
+        top: "62px", // ✅ height of your AppBar/Navbar
+        height: "calc(100vh - 62px)", // ✅ sidebar takes height below navbar
           border: "none",}
        }}>
         <Box sx={{height:"100%", overflowY: "auto",
