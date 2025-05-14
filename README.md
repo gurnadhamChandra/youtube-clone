@@ -14,8 +14,8 @@ If you are developing a production application, we recommend using TypeScript an
 
 <!-- make env file and use urls -->
 REACT_APP_DEV_TOOLS=true
-VITE_YOUTUBE_API_KEY
-VITE_YOUTUBE_BASE_URL
+VITE_YOUTUBE_API_KEY="Add your Api Key"
+VITE_YOUTUBE_BASE_URL=https://www.googleapis.com/youtube/v3
 
 
 <!-- get youtube api key auth
