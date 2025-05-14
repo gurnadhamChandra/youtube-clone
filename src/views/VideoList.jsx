@@ -10,13 +10,7 @@ import Skeleton from "react-loading-skeleton";
 
 const VideoList=({data,isLoading,error,videos,variant})=>{
     const dispatch=useDispatch()
-    // const {data,isLoading,error}=useQuery({
-    //         queryKey: ['popularVideos'],
-    //     queryFn: youtubeService.getAllPopularVideos,
-    //     onSuccess: (data) => {
-    //         dispatch(setVideos(data.data.items));
-    //       },
-    //     })
+   
     const listToRender = data?.length > 0 ? data : videos;
         const navigate=useNavigate()
         useEffect(()=>{
